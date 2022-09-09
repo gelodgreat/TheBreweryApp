@@ -7,6 +7,7 @@ import {formatAddress} from 'utils/address';
 import {Linking, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-toast-message';
+import moment from 'moment';
 
 const DetailsScreen = (props: DetailsProps) => {
   const {details, bookmarks, onBookmark} = props;
@@ -42,7 +43,10 @@ const DetailsScreen = (props: DetailsProps) => {
         )}
 
         <Row style={{marginTop: 24}}>
-          <Text>Updated Date: {details.updated_at}</Text>
+          <Text>
+            Updated Date:{' '}
+            {moment(new Date(details.updated_at)).format('MMM, DD YYYY')}
+          </Text>
         </Row>
 
         <Row style={{marginTop: 24}}>
