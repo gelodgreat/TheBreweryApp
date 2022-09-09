@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BOOKMARK_SCREEN, HOME_SCREEN, ROOT_SCREEN} from 'const/screens';
 import BreweryStack from './navigator';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import BookmarksContainer from 'screen/Bookmarks/Bookmarks.container';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name={BOOKMARK_SCREEN}
-        component={BreweryStack}
+        component={BookmarksContainer}
         options={{headerTitle: 'Bookmark'}}
       />
     </Tab.Navigator>

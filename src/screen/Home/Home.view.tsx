@@ -31,13 +31,6 @@ const HomeScreen = (props: HomeProps) => {
           Address:{' '}
           {formatAddress(itemData.street, itemData.city, itemData.state)}
         </TextData>
-        {/* <TouchableOpacity onPress={() => onBookmark(item)}>
-          {bookmarks.find(i => i.id === itemData.id) ? (
-            <Icon name="bookmark" color="blue" />
-          ) : (
-            <Icon name="bookmark" color="grey" />
-          )}
-        </TouchableOpacity> */}
       </DataContainer>
     );
   };
@@ -48,11 +41,18 @@ const HomeScreen = (props: HomeProps) => {
         value={searchTerm}
         onChangeText={setSearchTerm}
         placeholder="Search brewery..."
-        style={{marginBottom: 8}}
+        mode="outlined"
+        style={{
+          marginBottom: 8,
+          backgroundColor: 'white',
+          borderRadius: 12,
+          textDecorationLine: 'none',
+        }}
       />
       {loading && <ActivityIndicator animating />}
       {breweries && (
         <FlatList
+          keyExtractor={() => Math.random().toString()}
           data={breweries}
           renderItem={renderItem}
           onEndReachedThreshold={0.5}
