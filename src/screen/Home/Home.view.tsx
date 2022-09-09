@@ -3,9 +3,10 @@ import React from 'react';
 import {Container, DataContainer, TextData} from './Home.style';
 import {HomeProps} from './Home.props';
 import {ActivityIndicator, TextInput} from 'react-native-paper';
-import {FlashList} from '@shopify/flash-list';
 import {Brewery} from 'types/Brewery';
 import {formatAddress} from 'utils/address';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {FlatList} from 'react-native';
 
 const HomeScreen = (props: HomeProps) => {
   const {
@@ -15,6 +16,8 @@ const HomeScreen = (props: HomeProps) => {
     onNavigateDetails,
     loadMore,
     breweries,
+    bookmarks,
+    onBookmark,
   } = props;
 
   const renderItem = ({item}: any) => {
@@ -28,6 +31,13 @@ const HomeScreen = (props: HomeProps) => {
           Address:{' '}
           {formatAddress(itemData.street, itemData.city, itemData.state)}
         </TextData>
+        {/* <TouchableOpacity onPress={() => onBookmark(item)}>
+          {bookmarks.find(i => i.id === itemData.id) ? (
+            <Icon name="bookmark" color="blue" />
+          ) : (
+            <Icon name="bookmark" color="grey" />
+          )}
+        </TouchableOpacity> */}
       </DataContainer>
     );
   };
@@ -42,12 +52,11 @@ const HomeScreen = (props: HomeProps) => {
       />
       {loading && <ActivityIndicator animating />}
       {breweries && (
-        <FlashList
+        <FlatList
           data={breweries}
           renderItem={renderItem}
           onEndReachedThreshold={0.5}
           onEndReached={loadMore}
-          estimatedItemSize={10}
         />
       )}
     </Container>

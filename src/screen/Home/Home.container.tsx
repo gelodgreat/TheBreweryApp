@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import HomeScreen from './Home.view';
 import {useDispatch, useSelector} from 'react-redux';
-import {clearBreweryList, currentBrewery, loadBreweries} from 'redux/actions';
+import {
+  addBookmarks,
+  clearBreweryList,
+  currentBrewery,
+  loadBreweries,
+} from 'redux/actions';
 import {useNavigation} from '@react-navigation/native';
 import {Store} from 'types/Store';
 import {DETAILS_SCREEN} from 'const/screens';
 import {HomePrivateProps} from './Home.props';
 import {Brewery} from 'types/Brewery';
+import {Bookmarks} from 'types/Bookmarks';
 
 const HomeContainer = (props: any) => {
   const dispatch = useDispatch();
@@ -18,6 +24,9 @@ const HomeContainer = (props: any) => {
 
   const breweries =
     useSelector((state: Store) => state.brewery.breweries) || [];
+
+  const bookmarks =
+    useSelector((state: Store) => state.bookmarks.bookmarks) || [];
 
   const onNavigateDetails = (details: Brewery) => {
     dispatch(currentBrewery(details.id));
@@ -33,6 +42,10 @@ const HomeContainer = (props: any) => {
     } catch (error) {
       console.log({error});
     }
+  };
+
+  const onBookmark = (bookmark: Bookmarks) => {
+    dispatch(addBookmarks(bookmark));
   };
 
   const loadMore = async () => {
@@ -63,6 +76,8 @@ const HomeContainer = (props: any) => {
     loading,
     onNavigateDetails,
     loadMore,
+    onBookmark,
+    bookmarks,
   };
 
   return <HomeScreen {...generatedProps} {...props} />;

@@ -5,7 +5,9 @@ export const formatAddress = (
   postal_code?: string,
   country?: string,
 ) => {
-  return `${street} ${city} ${state}${postal_code && ` ${postal_code}`}${
-    country && ` ${country}`
+  return `${street}${city && ` ${city}`}${
+    (state || '').length > 0 && ` ${state}`
+  }${(postal_code || '')?.length > 0 ? ` ${postal_code}` : ''}${
+    (country || '')?.length > 0 ? ` ${country}` : ''
   }`;
 };

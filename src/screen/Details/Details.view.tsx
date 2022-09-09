@@ -1,12 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Container, ContentContainer, Row} from './Details.style';
 import {DetailsProps} from './Details.props';
 import {Text} from 'react-native-paper';
 import {formatAddress} from 'utils/address';
+import {Linking, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Toast from 'react-native-toast-message';
 
 const DetailsScreen = (props: DetailsProps) => {
-  const {details} = props;
+  const {details, bookmarks, onBookmark} = props;
+
   return (
     <Container>
       <ContentContainer>
@@ -14,14 +18,10 @@ const DetailsScreen = (props: DetailsProps) => {
           <Text> Name: {details.name}</Text>
         </Row>
         <Row style={{marginTop: 24}}>
-          {/* <Icon name="heart" size={20} /> */}
-          <Text style={{marginLeft: 8}}>
-            Brewery Type{details.brewery_type}
-          </Text>
+          <Text>Brewery Type{details.brewery_type}</Text>
         </Row>
         <Row style={{marginTop: 24}}>
-          {/* <Icon name="download" size={20} /> */}
-          <Text style={{marginLeft: 8}}>
+          <Text>
             Address:{' '}
             {formatAddress(
               details.street,
@@ -32,19 +32,33 @@ const DetailsScreen = (props: DetailsProps) => {
             )}
           </Text>
         </Row>
+        {details.website_url && (
+          <Row style={{marginTop: 24}}>
+            <TouchableOpacity
+              onPress={() => Linking.openURL(details?.website_url)}>
+              <Text> Link: {details.website_url}</Text>
+            </TouchableOpacity>
+          </Row>
+        )}
+
         <Row style={{marginTop: 24}}>
-          {/* <Icon name="eye" size={20} /> */}
-          <Text style={{marginLeft: 8}}> Link: {details.website_url}</Text>
-        </Row>
-        <Row style={{marginTop: 24}}>
-          {/* <Icon name="tags" size={20} /> */}
-          <Text style={{marginLeft: 8}}>
-            Updated Date: {details.updated_at}
-          </Text>
+          <Text>Updated Date: {details.updated_at}</Text>
         </Row>
 
-        <Row style={{marginTop: 48}}></Row>
+        <Row style={{marginTop: 24}}>
+          <Text style={{marginRight: 8}}>Save this now: </Text>
+          <TouchableOpacity onPress={() => onBookmark(details)}>
+            {bookmarks.find(i => i.id === details.id) ? (
+              <Icon name="bookmark" color="blue" size={18} />
+            ) : (
+              <Icon name="bookmark" color="grey" size={18} />
+            )}
+          </TouchableOpacity>
+        </Row>
+
+        <Row style={{marginTop: 48}} />
       </ContentContainer>
+      <Toast />
     </Container>
   );
 };
