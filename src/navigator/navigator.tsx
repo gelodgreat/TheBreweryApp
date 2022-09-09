@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -23,7 +24,9 @@ const BreweryStack = () => {
         options={({navigation, route}) => ({
           headerTitle: 'Details',
           headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{marginRight: 8}}>
               <Text>Back</Text>
             </TouchableOpacity>
           ),
