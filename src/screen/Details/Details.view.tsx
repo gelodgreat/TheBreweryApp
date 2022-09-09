@@ -3,7 +3,7 @@ import {Container, ContentContainer, Row} from './Details.style';
 import {DetailsProps} from './Details.props';
 import {Text} from 'react-native-paper';
 import {formatAddress} from 'utils/address';
-// import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const DetailsScreen = (props: DetailsProps) => {
   const {details} = props;

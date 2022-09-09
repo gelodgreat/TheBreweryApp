@@ -21,7 +21,7 @@ const HomeContainer = (props: any) => {
 
   const onNavigateDetails = (details: Brewery) => {
     dispatch(currentBrewery(details.id));
-    navigation.navigate(DETAILS_SCREEN);
+    navigation.navigate(DETAILS_SCREEN, {screen: DETAILS_SCREEN});
   };
 
   const getBreweryResult = async () => {
