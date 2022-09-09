@@ -10,7 +10,7 @@ import {
 import {BookmarksProps} from './Bookmarks.props';
 import {Text} from 'react-native-paper';
 import {formatAddress} from 'utils/address';
-import {FlatList, Linking, TouchableOpacity} from 'react-native';
+import {FlatList, Linking, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-toast-message';
 import {Bookmarks} from 'types/Bookmarks';
@@ -29,11 +29,18 @@ const BookmarksScreen = (props: BookmarksProps) => {
           Address:{' '}
           {formatAddress(itemData.street, itemData.city, itemData.state)}
         </TextData>
-        <TouchableOpacity onPress={() => onBookmark(item)}>
+        <TouchableOpacity
+          onPress={() => onBookmark(item)}
+          style={{
+            marginTop: 12,
+            marginRight: 12,
+            justifyContent: 'flex-end',
+            alignSelf: 'flex-end',
+          }}>
           {bookmarks.find(i => i.id === itemData.id) ? (
-            <Icon name="bookmark" color="blue" />
+            <Icon name="bookmark" color="blue" size={20} />
           ) : (
-            <Icon name="bookmark" color="grey" />
+            <Icon name="bookmark" color="grey" size={20} />
           )}
         </TouchableOpacity>
       </DataContainer>
@@ -43,12 +50,17 @@ const BookmarksScreen = (props: BookmarksProps) => {
   return (
     <Container>
       <ContentContainer>
-        {bookmarks && (
+        <Text style={{fontSize: 24}}>Bookmarks: {bookmarks.length || 0}</Text>
+        {bookmarks.length > 0 ? (
           <FlatList
             data={bookmarks}
             renderItem={renderItem}
             onEndReachedThreshold={0.5}
           />
+        ) : (
+          <View>
+            <Text>You don't have any bookmarks</Text>
+          </View>
         )}
       </ContentContainer>
       <Toast />
